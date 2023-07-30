@@ -9,10 +9,7 @@ def log(url, status):
     :param status: A status code for the `Response`.
 
     """
-    if 200 <= int(status) < 300:
-        prose = 'OK'
-    else:
-        prose = 'ERR'
+    prose = 'OK' if 200 <= int(status) < 300 else 'ERR'
     print("{prose}: {status} {url}".format(prose=prose, url=url, status=status))
 
 
