@@ -33,10 +33,7 @@ class Crawler(object):
     def __init__(self, url, delay, ignore):
         self.url = url
         self.delay = delay
-        if ignore:
-            self.ignore = ignore.split(',')
-        else:
-            self.ignore = []
+        self.ignore = ignore.split(',') if ignore else []
 
     def get(self, url):
         """
@@ -59,10 +56,7 @@ class Crawler(object):
         for tag in soup.findAll('a', href=True):
             link = tag['href']
             parsed = urlparse(link)
-            if parsed.scheme:
-                to_get = link
-            else:
-                to_get = self.url + link
+            to_get = link if parsed.scheme else self.url + link
             if should_ignore(self.ignore, to_get):
                 print('Ignoring URL: {url}'.format(url=to_get))
                 continue
